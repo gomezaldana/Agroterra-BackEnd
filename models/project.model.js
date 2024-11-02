@@ -44,6 +44,16 @@ const getProject = async (id) => {
     }
 }
 
+const allProjectsFromUser = async (id) => {
+
+    try {
+        return await ProjectModel.find({ userId: userId });
+
+    } catch (error) {
+        throw new Error(`Error al obtener los proyectos del usuario ${id}`);
+    }
+}
+
 const allProjects = async () => {
 
     try {
@@ -78,7 +88,8 @@ export default {
     saveProject,
     allProjects,
     getProject,
-    deleteProject
+    deleteProject,
+    allProjectsFromUser
 }
 
 

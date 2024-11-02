@@ -105,10 +105,30 @@ const verProyectos = async (req, res) => {
     }
 
 }
+// http://localhost:8080/api/projects/user/id 
+
+const verProyectosDeUsuario = async (req, res) => {
+    const idUser = req.params.id;
+
+    try {
+        const projects = await projectModel.allProjectsFromUser(idUser)
+        res.status(200).json({
+            ok: true,
+            projects,
+        });
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: `Error al obtener proyectos del usuario ${idUser}`,
+        });
+    }
+
+}
 
 export default {
     crearProyecto,
     verProyecto,
     verProyectos,
-    borrarProyecto
+    borrarProyecto,
+    verProyectosDeUsuario
 }
