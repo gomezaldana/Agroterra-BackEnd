@@ -45,6 +45,31 @@ const crearUsuario = async (req, res) => {
     }
 }
 
+const encontrarUsuarioPorId = async (req, res) => {
+    const id =req.params.id 
+    try {
+        const usuario = await models.getUsuarioById(id)
+        if ( !usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe en nuestro registros'
+            })
+        }
+        res.status(200).json({
+            ok: true,
+            uid: usuario.id,
+            name: usuario.name,
+            lastName: usuario.lastName,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'No se pudo encontrar al usuario'
+        })
+    }
+}
+
 // http://localhost:8080/api/auth/login 
 const loginUsuario = async (req, res) => {
 
@@ -97,4 +122,5 @@ const loginUsuario = async (req, res) => {
 export default {
     crearUsuario,
     loginUsuario,
+    encontrarUsuarioPorId
 }

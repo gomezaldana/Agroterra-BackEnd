@@ -53,6 +53,17 @@ const getUsuarioByEmail = async (email) => {
     }
 }
 
+const getUsuarioById = async (id) => {
+    try {
+        
+        const usuario = await AuthModel.findById(id)
+        return usuario
+
+    } catch (error) {
+        console.log('[getUsuarioById]: No se pudo obtener el usuario', error)
+    }
+}
+
 const createUsuario = async (nuevoUsuario) => {
 
     try {
@@ -80,7 +91,8 @@ const checkUsuarioPassword = async (usuario, password) => {
 export default {
     getUsuarioByEmail, 
     createUsuario, 
-    checkUsuarioPassword
+    checkUsuarioPassword,
+    getUsuarioById  
 }
 
 

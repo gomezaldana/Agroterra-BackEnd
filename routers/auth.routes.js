@@ -6,4 +6,6 @@ routerAuth.post('/create', controller.crearUsuario)
 
 routerAuth.post('/login', controller.loginUsuario)
 
+routerAuth.get('/user/:id', controller.encontrarUsuarioPorId)
+
 export default routerAuth
