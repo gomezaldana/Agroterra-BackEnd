@@ -2,7 +2,7 @@ import projectModel from '../models/project.model.js';
 
 // http://localhost:8080/api/projects/ 
 
-const crearProyecto = async (req, res) => {
+/* const crearProyecto = async (req, res) => {
     const project = req.body
 
     try {
@@ -19,27 +19,33 @@ const crearProyecto = async (req, res) => {
             msg: 'Error al crear el proyecto',
         });
     }
-    /* 
-        try {
-            const project = new ProjectModel({
-                title,
-                description,
-                amount,
-                raised,
-                userId: req.uid, // Almacena el ID del usuario que crea el proyecto
-            });
-    
-            await project.save();
-            res.status(201).json({
-                ok: true,
-                msg: 'Proyecto creado exitosamente',
-                project,
-            });
-        } catch (error) {
-            console.log(error);
-           
-        } */
+ 
+} */
+
+const crearProyecto = async (req, res) => { 
+    const project = req.body
+     // Si hay imágenes en la solicitud, las procesamos
+     const images = req.files ? req.files.map(file => ({
+        data: file.buffer.toString('base64'),
+        contentType: file.mimetype
+    })) : [];
+
+    try {
+        const projectSaved =  await projectModel.saveProject(project, images)
+        res.status(201).json({
+            ok: true,
+            msg: 'Proyecto creado exitosamente',
+            project: projectSaved,
+
+        });
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al crear el proyecto',
+        });
+    }
 }
+
 // http://localhost:8080/api/projects/id 
 const verProyecto = async (req, res) => {
     const id = req.params.id;
@@ -51,7 +57,7 @@ const verProyecto = async (req, res) => {
                 msg: 'Proyecto no encontrado'
             });
         }
-
+       
         res.status(200).json(project);
     } catch (error) {
         res.status(500).json({

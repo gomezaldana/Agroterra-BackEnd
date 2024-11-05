@@ -1,11 +1,16 @@
 import express from 'express';
 import authValidate from '../middlewares/auth.validate.js';
 import controller from '../controllers/project.controller.js'
+import multer from 'multer';
 
 const router = express.Router();
 
+// Configuración de Multer
+const storage = multer.memoryStorage();  // Guardamos las imágenes en memoria
+const upload = multer({ storage: storage });  // Configuración de multer
+
 // Ruta para crear un proyecto
-router.post('/',authValidate, controller.crearProyecto);
+router.post('/',authValidate, upload.array('images', 5), controller.crearProyecto);
 
 // Ruta para obtener un proyecto por ID
 router.get('/:id',authValidate, controller.verProyecto);

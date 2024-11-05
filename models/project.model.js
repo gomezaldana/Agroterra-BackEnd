@@ -23,6 +23,10 @@ const ProjectSchema = mongoose.Schema(
             ref: 'auth',
             required: true,
         },
+        images: [{
+            data: String,  
+            contentType: String
+        }]
     },
     {
         timestamps: true,
@@ -64,15 +68,18 @@ const allProjects = async () => {
     }
 
 }
-const saveProject = async (newProject) => {
+const saveProject = async (newProject, images) => {
     try {
-        const project = new ProjectModel(newProject); 
+        const project = new ProjectModel({
+            ...newProject,
+            images: images, 
+        });
         await project.save();
         return project;
     } catch (error) {
-        throw new Error('Error al crear el proyecto');
-    } 
-}
+        throw new Error('Error al guardar el proyecto');
+    }
+};
 
 const deleteProject = async (id) => {
     try {

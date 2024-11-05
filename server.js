@@ -4,11 +4,13 @@ import mongoose from 'mongoose';
 import routerAuth from './routers/auth.routes.js';
 import authValidate from './middlewares/auth.validate.js';
 import routerProject from './routers/project.routes.js';
+import cors from 'cors'
 
 // ! Constantes/Variables
 const app = express();
 const PORT = process.env.PORT;
 const CONECCTION_REMOTO = process.env.MONGO_REMOTO;
+const ORIGIN = process.env.ORIGIN
 
 // ! Conectandose a Mongo
 const handleConnection = async () => {
@@ -24,6 +26,12 @@ const handleConnection = async () => {
 app.use(express.static('./public'));
 app.use(express.json());
 
+app.use(cors())
+/* 
+const corsOptions = {
+  origin: ORIGIN,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+} */
 // ! Rutas
 app.use('/api/auth', routerAuth); // Rutas de autenticación
 
