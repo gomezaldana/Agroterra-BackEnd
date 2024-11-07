@@ -2,26 +2,6 @@ import projectModel from '../models/project.model.js';
 
 // http://localhost:8080/api/projects/ 
 
-/* const crearProyecto = async (req, res) => {
-    const project = req.body
-
-    try {
-        const projectSaved =  await projectModel.saveProject(project)
-        res.status(201).json({
-            ok: true,
-            msg: 'Proyecto creado exitosamente',
-            project: projectSaved,
-
-        });
-    } catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: 'Error al crear el proyecto',
-        });
-    }
- 
-} */
-
 const crearProyecto = async (req, res) => { 
     const project = req.body
      // Si hay imágenes en la solicitud, las procesamos

@@ -26,7 +26,15 @@ const ProjectSchema = mongoose.Schema(
         images: [{
             data: String,  
             contentType: String
-        }]
+        }],
+        deadline: { 
+            type: Date,
+            required: true, 
+        },
+        resume: {
+            type: String,
+            required: true,
+        },
     },
     {
         timestamps: true,
